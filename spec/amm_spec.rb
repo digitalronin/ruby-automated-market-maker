@@ -34,4 +34,11 @@ describe Amm do
 
     expect(actual).to eq(expected)
   end
+
+  it "increases token price" do
+    tokens1 = amm.buy(1)
+    tokens2 = amm.buy(1)
+
+    expect(tokens1).to be > tokens2
+  end
 end

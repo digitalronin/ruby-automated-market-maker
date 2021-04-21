@@ -41,4 +41,13 @@ describe Amm do
 
     expect(tokens1).to be > tokens2
   end
+
+  it "reduces token price" do
+    tokens = amm.buy(1)
+
+    eth1 = amm.sell(tokens/2)
+    eth2 = amm.sell(tokens/2)
+
+    expect(eth1).to be > eth2
+  end
 end

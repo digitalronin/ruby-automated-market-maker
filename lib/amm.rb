@@ -21,6 +21,8 @@ class Amm
 
     @token_reserve = new_token_reserve
     output
+
+    return tokens_bought
   end
 
   # Counterparty sells `amount` tokens for some eth
@@ -36,6 +38,8 @@ class Amm
 
     @ether_reserve = new_ether_reserve
     output
+
+    return ether
   end
 
   private

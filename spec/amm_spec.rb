@@ -2,7 +2,13 @@ describe Amm do
   let(:ether_reserve) { 10 }
   let(:token_reserve) { 1000 }
 
-  subject(:amm) { described_class.new(ether_reserve, token_reserve) }
+  let(:params) { {
+    ether_reserve: ether_reserve,
+    token_reserve: token_reserve,
+    silent: true,
+  } }
+
+  subject(:amm) { described_class.new(params) }
 
   it "sets eth value" do
     expect(amm.ether_reserve).to eq(ether_reserve)

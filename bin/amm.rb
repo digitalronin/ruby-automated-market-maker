@@ -2,7 +2,7 @@
 
 require "./lib/amm"
 
-amm = Amm.new(10, 1000)
+amm = Amm.new(ether_reserve: 10, token_reserve: 1000)
 string = ""
 
 loop do

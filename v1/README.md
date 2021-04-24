@@ -2,4 +2,8 @@
 
 This just demonstrates the algorithm: x * y = k
 
-Demonstrates slippage, and the need for lots of liquidity
+Demonstrates:
+
+* price movement in response to buying/selling
+* slippage
+* the need for lots of liquidity

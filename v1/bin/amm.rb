@@ -2,12 +2,14 @@
 
 require "./lib/amm"
 
-amm = Amm.new(ether_reserve: 10, token_reserve: 1000)
+ether, tokens = ARGV
+
+amm = Amm.new(ether_reserve: ether.to_f, token_reserve: tokens.to_f)
 string = ""
 
 loop do
   print "> "
-  string = gets
+  string = STDIN.gets
 
   break if string.chomp == "q"
 

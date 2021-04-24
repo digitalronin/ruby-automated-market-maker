@@ -18,7 +18,8 @@ class Amm
     new_token_reserve = @konst / @ether_reserve
 
     tokens_bought = @token_reserve - new_token_reserve
-    log "You get #{tokens_bought} tokens" # this is where we would transfer tokens to the buyer
+    price = sprintf("%0.4f", ether / tokens_bought)
+    log "You get #{tokens_bought} tokens for #{ether} ether, price #{price}" # this is where we would transfer tokens to the buyer
 
     @token_reserve = new_token_reserve
     output
@@ -34,7 +35,8 @@ class Amm
     new_ether_reserve = @konst / @token_reserve
 
     ether = @ether_reserve - new_ether_reserve
-    log "You get #{ether} ether" # This is where we send ETH to the seller
+    price = sprintf("%0.4f", ether / tokens_sold)
+    log "You get #{ether} ether for #{tokens_sold} tokens, price #{price}" # This is where we send ETH to the seller
 
     @ether_reserve = new_ether_reserve
     output

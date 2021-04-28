@@ -1,3 +1,3 @@
-require "./amm"
-require "./counterparty"
-require "./counterparties"
+require_relative "./amm"
+require_relative "./counterparty"
+require_relative "./counterparties"

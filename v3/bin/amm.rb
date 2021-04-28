@@ -26,8 +26,8 @@ loop do
     amm.buy(counterparty, ether)
   when /(.*) sell (.*)/
     name = $1
-    tokens = $2.to_f
     counterparty = counterparties.find(name)
+    tokens = $2 == "all" ? counterparty.tokens : $2.to_f
     amm.sell(counterparty, tokens)
   when "counterparties"
     counterparties.output

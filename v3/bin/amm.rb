@@ -29,13 +29,13 @@ loop do
     tokens = $2.to_f
     counterparty = counterparties.find(name)
     amm.sell(counterparty, tokens)
+  when "counterparties"
+    counterparties.output
   when "q"
     break
   else
     puts "???"
   end
 end
-
-counterparties.output
 
 puts "bye."

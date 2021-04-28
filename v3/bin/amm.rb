@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "./lib/amm"
+require "./lib/requires"
 
 ether, tokens = ARGV
 ether ||= 10

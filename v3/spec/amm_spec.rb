@@ -8,7 +8,7 @@ describe Amm do
     silent: true,
   } }
 
-  let(:alice) { "alice" }
+  let(:alice) { Counterparty.new(name: "alice", ether: 10) }
 
   subject(:amm) { described_class.new(params) }
 

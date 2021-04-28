@@ -18,9 +18,7 @@ loop do
   print "> "
   string = STDIN.gets
 
-  break if string.chomp == "q"
-
-  case string
+  case string.chomp
   when /(.*) buy (.*)/
     name = $1
     ether = $2.to_f
@@ -31,6 +29,8 @@ loop do
     tokens = $2.to_f
     counterparty = counterparties.find(name)
     amm.sell(counterparty, tokens)
+  when "q"
+    break
   else
     puts "???"
   end

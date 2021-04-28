@@ -8,7 +8,8 @@ describe Amm do
     silent: true,
   } }
 
-  let(:alice) { Counterparty.new(name: "alice", ether: 10) }
+  let(:initial_eth) { 10.0 }
+  let(:alice) { Counterparty.new(name: "alice", ether: initial_eth) }
 
   subject(:amm) { described_class.new(params) }
 
@@ -51,5 +52,23 @@ describe Amm do
     eth2 = amm.sell(alice, tokens/2)
 
     expect(eth1).to be > eth2
+  end
+
+  it "takes ether from counterparty" do
+    amm.buy(alice, 1)
+    expect(alice.ether).to eq(initial_eth - 1)
+  end
+
+  it "gives tokens to counterparty" do
+    amm.buy(alice, 1)
+    expect(alice.tokens).to be > 0
+  end
+
+  it "takes tokens from counterparty" do
+    amm.buy(alice, 1)
+    t1 = alice.tokens
+
+    amm.sell(alice, 1)
+    expect(alice.tokens).to eq(t1 - 1)
   end
 end

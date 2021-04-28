@@ -15,7 +15,9 @@ class Amm
     ether = amount.to_f
     tokens_bought, @ether_reserve, @token_reserve = trade(ether, @ether_reserve, @token_reserve)
     price = sprintf("%0.4f", ether / tokens_bought)
-    log "#{counterparty} gets #{tokens_bought} tokens for #{ether} ether, price #{price}" # this is where we would transfer tokens to the buyer
+    log "#{counterparty.name} gets #{tokens_bought} tokens for #{ether} ether, price #{price}"
+    counterparty.ether -= ether
+    counterparty.tokens += tokens_bought
     output
     return tokens_bought
   end
@@ -25,7 +27,9 @@ class Amm
     tokens = amount.to_f
     ether, @token_reserve, @ether_reserve = trade(tokens, @token_reserve, @ether_reserve)
     price = sprintf("%0.4f", ether / tokens)
-    log "#{counterparty} gets #{ether} ether for #{tokens} tokens, price #{price}" # This is where we send ETH to the seller
+    log "#{counterparty.name} gets #{ether} ether for #{tokens} tokens, price #{price}" # This is where we send ETH to the seller
+    counterparty.ether += ether
+    counterparty.tokens -= tokens
     output
     return ether
   end

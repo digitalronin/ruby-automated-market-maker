@@ -36,4 +36,6 @@ loop do
   end
 end
 
+counterparties.output
+
 puts "bye."

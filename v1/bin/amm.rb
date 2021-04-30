@@ -13,13 +13,13 @@ loop do
   print "> "
   string = STDIN.gets
 
-  break if string.chomp == "q"
-
-  case string
+  case string.chomp
   when /buy (.*)/
     amm.buy($1)
   when /sell (.*)/
     amm.sell($1)
+  when "q"
+    break
   else
     puts "???"
   end

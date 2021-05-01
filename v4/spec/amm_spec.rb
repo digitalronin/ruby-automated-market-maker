@@ -80,7 +80,12 @@ describe Amm do
       }.to change(lp, :tokens).by(100)
     end
 
-    it "cannot remove too much ether"
+    it "cannot remove too much ether" do
+      amm.add_liquidity(lp, 5, 500)
+      expect {
+        amm.remove_liquidity(lp, 1000)
+      }.to_not change(amm, :ether_reserve)
+    end
 
     it "sets eth value" do
       expect(amm.ether_reserve).to eq(ether_reserve)

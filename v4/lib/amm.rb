@@ -13,7 +13,6 @@ class Amm
   end
 
   def remove_liquidity(counterparty, ether)
-    tokens_removed = 0.0
     tokens_removed = ether * (@token_reserve / @ether_reserve)
 
     if ether > @ether_reserve
@@ -48,13 +47,9 @@ class Amm
 
       counterparty.tokens -= max_tokens
       counterparty.ether -= ether
-      # @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens
-      # log "Add liquidity returning #{@total_liquidity} liquidity tokens"
-      # TODO: Give liquidity tokens to liquidity provider
     end
 
     output
-    # TODO: return liquidity minted
   end
 
   # Counterparty pays `amount` eth for some tokens

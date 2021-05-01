@@ -12,6 +12,23 @@ class Amm
     @ether_reserve.to_f / @token_reserve
   end
 
+  def remove_liquidity(counterparty, ether)
+    tokens_removed = 0.0
+    tokens_removed = ether * (@token_reserve / @ether_reserve)
+
+    if ether > @ether_reserve
+      log "Error: insufficient liquidity"
+    else
+      @token_reserve -= tokens_removed
+      @ether_reserve -= ether
+
+      counterparty.tokens += tokens_removed
+      counterparty.ether += ether
+    end
+
+    output
+  end
+
   def add_liquidity(counterparty, ether, max_tokens)
     tokens_added = 0.0
 

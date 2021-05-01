@@ -29,6 +29,7 @@ loop do
   when "counterparties"
   when "counterparties", "c"
     counterparties.output
+    amm.output
   when "q"
     break
   else

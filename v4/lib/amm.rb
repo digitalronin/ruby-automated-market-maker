@@ -50,6 +50,10 @@ class Amm
     return ether
   end
 
+  def output
+    log "Amm eth: #{@ether_reserve}, tokens: #{@token_reserve}"
+  end
+
   private
 
   def trade(amount, input_reserve, output_reserve)
@@ -62,9 +66,5 @@ class Amm
   def log(msg)
     return if @silent
     puts msg
-  end
-
-  def output
-    log "Amm eth: #{@ether_reserve}, tokens: #{@token_reserve}"
   end
 end

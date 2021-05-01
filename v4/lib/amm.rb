@@ -13,23 +13,31 @@ class Amm
   end
 
   def add_liquidity(counterparty, ether, max_tokens)
+    tokens_added = 0.0
+
     if @ether_reserve > 0.0
       # Adding more liquidity to existing AMM
-      raise "We haven't implemented adding more liquidity yet"
+      tokens_added = ether * (@token_reserve / @ether_reserve)
     else
       # First deposit into AMM
-      @token_reserve = max_tokens
-      @ether_reserve = ether
+      tokens_added = max_tokens
+    end
+
+    if tokens_added > max_tokens
+      log "Error: #{max_tokens} is not enough. #{tokens_added} required."
+    else
+      @token_reserve += tokens_added
+      @ether_reserve += ether
 
       counterparty.tokens -= max_tokens
       counterparty.ether -= ether
       # @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens
       # log "Add liquidity returning #{@total_liquidity} liquidity tokens"
       # TODO: Give liquidity tokens to liquidity provider
-      output
-
-      # return @total_liquidity
     end
+
+    output
+    # TODO: return liquidity minted
   end
 
   # Counterparty pays `amount` eth for some tokens

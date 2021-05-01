@@ -4,8 +4,8 @@ require "./lib/requires"
 
 amm = Amm.new
 
-alice = Counterparty.new(name: "Alice", ether: 10)
-bob = Counterparty.new(name: "Bob", ether: 10)
+alice = Counterparty.new(name: "alice", ether: 10)
+bob = Counterparty.new(name: "bob", ether: 10)
 
 counterparties = Counterparties.new([alice, bob])
 

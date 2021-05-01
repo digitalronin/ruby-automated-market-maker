@@ -60,7 +60,7 @@ class Amm
   end
 
   def output
-    log "Amm eth: #{@ether_reserve}, tokens: #{@token_reserve}"
+    log "Amm eth: #{@ether_reserve}, tokens: #{@token_reserve}, price: #{get_price} eth/token"
   end
 
   private

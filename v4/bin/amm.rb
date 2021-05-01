@@ -27,6 +27,7 @@ loop do
   when /add_liquidity (.*) (.*)/
     amm.add_liquidity($1.to_f, $2.to_f)
   when "counterparties"
+  when "counterparties", "c"
     counterparties.output
   when "q"
     break

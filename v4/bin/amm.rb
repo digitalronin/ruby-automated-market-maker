@@ -2,12 +2,7 @@
 
 require "./lib/requires"
 
-ether, tokens = ARGV
-ether ||= 10
-tokens ||= 1000
-
 amm = Amm.new
-amm.add_liquidity(ether, tokens)
 
 alice = Counterparty.new(name: "Alice", ether: 10)
 bob = Counterparty.new(name: "Bob", ether: 10)
@@ -29,6 +24,8 @@ loop do
     counterparty = counterparties.find(name)
     tokens = $2 == "all" ? counterparty.tokens : $2.to_f
     amm.sell(counterparty, tokens)
+  when /add_liquidity (.*) (.*)/
+    amm.add_liquidity($1.to_f, $2.to_f)
   when "counterparties"
     counterparties.output
   when "q"

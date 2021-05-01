@@ -7,7 +7,6 @@ ether ||= 10
 tokens ||= 1000
 
 amm = Amm.new(ether_reserve: ether.to_f, token_reserve: tokens.to_f)
-string = ""
 
 alice = Counterparty.new(name: "Alice", ether: 10)
 bob = Counterparty.new(name: "Bob", ether: 10)

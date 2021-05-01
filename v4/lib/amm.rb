@@ -8,6 +8,10 @@ class Amm
     output
   end
 
+  def get_price
+    @ether_reserve.to_f / @token_reserve
+  end
+
   def add_liquidity(counterparty, ether, max_tokens)
     if @ether_reserve > 0.0
       # Adding more liquidity to existing AMM

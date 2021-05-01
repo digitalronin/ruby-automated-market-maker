@@ -42,6 +42,22 @@ describe Amm do
       expect(amm.token_reserve).to eq(token_reserve)
     end
 
+    it "returns token price" do
+      expect(amm.get_price).to eq(0.01)
+    end
+
+    it "has higher token price after buy" do
+      initial_price = amm.get_price
+      amm.buy(alice, 1)
+      expect(amm.get_price).to be > initial_price
+    end
+
+    it "has lower token price after sell" do
+      initial_price = amm.get_price
+      amm.sell(alice, 100)
+      expect(amm.get_price).to be < initial_price
+    end
+
     it "returns to initial state" do
       tokens = amm.buy(alice, 1)
       amm.sell(alice, tokens)

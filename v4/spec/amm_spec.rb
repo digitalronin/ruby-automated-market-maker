@@ -23,16 +23,64 @@ describe Amm do
       expect([amm.ether_reserve, amm.token_reserve]).to eq([5, 500])
     end
 
-    # it "returns liquidity tokens minted" do
-    #   lp_tokens = amm.add_liquidity(lp, 5, 500)
-    #   expect(lp_tokens).to eq(5.0)
-    # end
+    xit "returns liquidity tokens minted" do
+      lp_tokens = amm.add_liquidity(lp, 5, 500)
+      expect(lp_tokens).to eq(5.0)
+    end
   end
 
   context "With initial liquidity" do
     before do
       amm.add_liquidity(lp, ether_reserve, token_reserve)
     end
+
+    it "does not change price when adding liquidity" do
+      price = amm.get_price
+      amm.add_liquidity(lp, 5, 500)
+      expect(amm.get_price).to eq(price)
+    end
+
+    it "takes ether from provider" do
+      expect {
+        amm.add_liquidity(lp, 5, 500)
+      }.to change(lp, :ether).by(-5)
+    end
+
+    it "takes tokens from provider" do
+      expect {
+        amm.add_liquidity(lp, 5, 500)
+      }.to change(lp, :tokens).by(-500)
+    end
+
+    it "removes ether" do
+      amm.add_liquidity(lp, 5, 500)
+      expect {
+        amm.remove_liquidity(lp, 1)
+      }.to change(amm, :ether_reserve).by(-1)
+    end
+
+    it "removes tokens" do
+      amm.add_liquidity(lp, 5, 500)
+      expect {
+        amm.remove_liquidity(lp, 1)
+      }.to change(amm, :token_reserve).by(-100)
+    end
+
+    it "returns ether to provider" do
+      amm.add_liquidity(lp, 5, 500)
+      expect {
+        amm.remove_liquidity(lp, 1)
+      }.to change(lp, :ether).by(1)
+    end
+
+    it "returns tokens to provider" do
+      amm.add_liquidity(lp, 5, 500)
+      expect {
+        amm.remove_liquidity(lp, 1)
+      }.to change(lp, :tokens).by(100)
+    end
+
+    it "cannot remove too much ether"
 
     it "sets eth value" do
       expect(amm.ether_reserve).to eq(ether_reserve)

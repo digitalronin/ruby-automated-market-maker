@@ -7,6 +7,26 @@ describe Amm do
 
   subject(:amm) { described_class.new(silent: true) }
 
+  context "Adding initial liquidity" do
+    it "starts with no ether" do
+      expect(amm.ether_reserve).to eq(0.0)
+    end
+
+    it "starts with no tokens" do
+      expect(amm.token_reserve).to eq(0.0)
+    end
+
+    it "adds ether and tokens" do
+      amm.add_liquidity(5, 500)
+      expect([amm.ether_reserve, amm.token_reserve]).to eq([5, 500])
+    end
+
+    it "returns liquidity tokens minted" do
+      lp_tokens = amm.add_liquidity(5, 500)
+      expect(lp_tokens).to eq(5.0)
+    end
+  end
+
   context "With initial liquidity" do
     before do
       amm.add_liquidity(ether_reserve, token_reserve)

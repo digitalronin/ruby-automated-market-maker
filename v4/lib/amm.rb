@@ -8,7 +8,7 @@ class Amm
     output
   end
 
-  def add_liquidity(ether, max_tokens)
+  def add_liquidity(counterparty, ether, max_tokens)
     if @ether_reserve > 0.0
       # Adding more liquidity to existing AMM
       raise "We haven't implemented adding more liquidity yet"
@@ -16,6 +16,10 @@ class Amm
       # First deposit into AMM
       @token_reserve = max_tokens
       @ether_reserve = ether
+
+      counterparty.tokens -= max_tokens
+      counterparty.ether -= ether
+
       @konst = @token_reserve * @ether_reserve
 
       # @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens

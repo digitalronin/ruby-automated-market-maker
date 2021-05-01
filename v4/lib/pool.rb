@@ -1,13 +1,29 @@
 class Pool
-  attr_accessor :ether_reserve, :token_reserve
+  attr_accessor :ether_reserve, :token_reserve, :total_liquidity
 
-  def initialize(params)
-    @ether_reserve = params.fetch(:ether_reserve).to_f
-    @token_reserve = params.fetch(:token_reserve).to_f
+  def initialize(params = {})
+    @ether_reserve = 0.0
+    @token_reserve = 0.0
+    @total_liquidity = 0.0
     @silent = params.fetch(:silent) { false }
-
-    @konst = @ether_reserve * @token_reserve
     output
+  end
+
+  def add_liquidity(ether, max_tokens)
+    if @total_liquidity > 0.0
+      # Adding more liquidity to existing AMM
+      raise "We haven't implemented adding more liquidity yet"
+    else
+      # First deposit into AMM
+      @token_reserve = max_tokens.to_f
+      @ether_reserve = ether.to_f
+      @konst = @token_reserve * @ether_reserve
+      @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens
+      log "Add liquidity returning #{@total_liquidity} liquidity tokens"
+      # TODO: Give liquidity tokens to liquidity provider
+      output
+      return @total_liquidity
+    end
   end
 
   # Counterparty pays `amount` eth for some tokens

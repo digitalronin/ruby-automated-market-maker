@@ -2,16 +2,14 @@ describe Pool do
   let(:ether_reserve) { 10 }
   let(:token_reserve) { 1000 }
 
-  let(:params) { {
-    ether_reserve: ether_reserve,
-    token_reserve: token_reserve,
-    silent: true,
-  } }
-
   let(:initial_eth) { 10.0 }
   let(:alice) { Counterparty.new(name: "alice", ether: initial_eth) }
 
-  subject(:amm) { described_class.new(params) }
+  subject(:amm) { described_class.new(silent: true) }
+
+  before do
+    amm.add_liquidity(ether_reserve, token_reserve)
+  end
 
   it "sets eth value" do
     expect(amm.ether_reserve).to eq(ether_reserve)
@@ -31,8 +29,8 @@ describe Pool do
     }
 
     expected = {
-      ether_reserve: params[:ether_reserve],
-      token_reserve: params[:token_reserve],
+      ether_reserve: ether_reserve,
+      token_reserve: token_reserve,
     }
 
     expect(actual).to eq(expected)

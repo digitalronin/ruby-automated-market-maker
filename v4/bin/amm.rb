@@ -23,12 +23,12 @@ loop do
     counterparty = counterparties.find($1)
     tokens = $2 == "all" ? counterparty.tokens : $2.to_f
     amm.sell(counterparty, tokens)
-  when /(.*) remove_liquidity (.*)/, /(.*) remove (.*)/
-    counterparty = counterparties.find($1)
-    amm.remove_liquidity(counterparty, $2.to_f)
   when /(.*) add_liquidity (.*) (.*)/, /(.*) add (.*) (.*)/
     counterparty = counterparties.find($1)
     amm.add_liquidity(counterparty, $2.to_f, $3.to_f)
+  when /(.*) remove_liquidity (.*)/, /(.*) remove (.*)/
+    counterparty = counterparties.find($1)
+    amm.remove_liquidity(counterparty, $2.to_f)
   when "counterparties", "c"
     counterparties.output
     amm.output

@@ -1,4 +1,4 @@
-class Pool
+class Amm
   attr_accessor :ether_reserve, :token_reserve, :total_liquidity
 
   def initialize(params = {})
@@ -65,6 +65,6 @@ class Pool
   end
 
   def output
-    log "Pool eth: #{@ether_reserve}, tokens: #{@token_reserve}"
+    log "Amm eth: #{@ether_reserve}, tokens: #{@token_reserve}"
   end
 end

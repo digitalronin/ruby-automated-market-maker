@@ -1,4 +1,4 @@
-describe Pool do
+describe Amm do
   let(:ether_reserve) { 10 }
   let(:token_reserve) { 1000 }
 

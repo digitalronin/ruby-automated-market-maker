@@ -6,8 +6,9 @@ amm = Amm.new
 
 alice = Counterparty.new(name: "alice", ether: 10)
 bob = Counterparty.new(name: "bob", ether: 10)
+zoe = Counterparty.new(name: "zoe", ether: 10, tokens: 1000)
 
-counterparties = Counterparties.new([alice, bob])
+counterparties = Counterparties.new([alice, bob, zoe])
 
 loop do
   print "> "
@@ -24,9 +25,10 @@ loop do
     counterparty = counterparties.find(name)
     tokens = $2 == "all" ? counterparty.tokens : $2.to_f
     amm.sell(counterparty, tokens)
-  when /add_liquidity (.*) (.*)/
-    amm.add_liquidity($1.to_f, $2.to_f)
-  when "counterparties"
+  when /(.*) add_liquidity (.*) (.*)/, /(.*) add (.*) (.*)/
+    name = $1
+    counterparty = counterparties.find(name)
+    amm.add_liquidity(counterparty, $2.to_f, $3.to_f)
   when "counterparties", "c"
     counterparties.output
     amm.output

@@ -1,16 +1,15 @@
 class Amm
-  attr_accessor :ether_reserve, :token_reserve, :total_liquidity
+  attr_accessor :ether_reserve, :token_reserve
 
   def initialize(params = {})
     @ether_reserve = 0.0
     @token_reserve = 0.0
-    @total_liquidity = 0.0
     @silent = params.fetch(:silent) { false }
     output
   end
 
   def add_liquidity(ether, max_tokens)
-    if @total_liquidity > 0.0
+    if @ether_reserve > 0.0
       # Adding more liquidity to existing AMM
       raise "We haven't implemented adding more liquidity yet"
     else
@@ -18,11 +17,13 @@ class Amm
       @token_reserve = max_tokens
       @ether_reserve = ether
       @konst = @token_reserve * @ether_reserve
-      @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens
-      log "Add liquidity returning #{@total_liquidity} liquidity tokens"
+
+      # @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens
+      # log "Add liquidity returning #{@total_liquidity} liquidity tokens"
       # TODO: Give liquidity tokens to liquidity provider
       output
-      return @total_liquidity
+
+      # return @total_liquidity
     end
   end
 

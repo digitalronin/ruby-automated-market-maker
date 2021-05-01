@@ -15,8 +15,8 @@ class Amm
       raise "We haven't implemented adding more liquidity yet"
     else
       # First deposit into AMM
-      @token_reserve = max_tokens.to_f
-      @ether_reserve = ether.to_f
+      @token_reserve = max_tokens
+      @ether_reserve = ether
       @konst = @token_reserve * @ether_reserve
       @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens
       log "Add liquidity returning #{@total_liquidity} liquidity tokens"

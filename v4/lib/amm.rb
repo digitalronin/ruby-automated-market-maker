@@ -23,9 +23,6 @@ class Amm
 
       counterparty.tokens -= max_tokens
       counterparty.ether -= ether
-
-      @konst = @token_reserve * @ether_reserve
-
       # @total_liquidity = @ether_reserve # Use ether as our unit of account for liquidity tokens
       # log "Add liquidity returning #{@total_liquidity} liquidity tokens"
       # TODO: Give liquidity tokens to liquidity provider
@@ -66,8 +63,10 @@ class Amm
   private
 
   def trade(amount, input_reserve, output_reserve)
+    konst = @token_reserve * @ether_reserve
+
     new_input_reserve = input_reserve + amount
-    new_output_reserve = @konst / new_input_reserve
+    new_output_reserve = konst / new_input_reserve
     proceeds = output_reserve - new_output_reserve
     return [proceeds, new_input_reserve, new_output_reserve]
   end

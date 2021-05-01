@@ -6,8 +6,8 @@ ether, tokens = ARGV
 ether ||= 10
 tokens ||= 1000
 
-pool = Amm.new
-pool.add_liquidity(ether, tokens)
+amm = Amm.new
+amm.add_liquidity(ether, tokens)
 
 alice = Counterparty.new(name: "Alice", ether: 10)
 bob = Counterparty.new(name: "Bob", ether: 10)
@@ -23,12 +23,12 @@ loop do
     name = $1
     ether = $2.to_f
     counterparty = counterparties.find(name)
-    pool.buy(counterparty, ether)
+    amm.buy(counterparty, ether)
   when /(.*) sell (.*)/
     name = $1
     counterparty = counterparties.find(name)
     tokens = $2 == "all" ? counterparty.tokens : $2.to_f
-    pool.sell(counterparty, tokens)
+    amm.sell(counterparty, tokens)
   when "counterparties"
     counterparties.output
   when "q"

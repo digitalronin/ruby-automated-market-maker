@@ -52,6 +52,12 @@ describe Amm do
       }.to change(lp, :tokens).by(-500)
     end
 
+    it "takes less than max_tokens from provider" do
+      expect {
+        amm.add_liquidity(lp, 5, 10000)
+      }.to change(lp, :tokens).by(-500)
+    end
+
     it "removes ether" do
       amm.add_liquidity(lp, 5, 500)
       expect {

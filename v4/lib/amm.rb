@@ -45,7 +45,7 @@ class Amm
       @token_reserve += tokens_added
       @ether_reserve += ether
 
-      counterparty.tokens -= max_tokens
+      counterparty.tokens -= tokens_added
       counterparty.ether -= ether
     end
 

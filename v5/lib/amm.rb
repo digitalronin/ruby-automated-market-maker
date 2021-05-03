@@ -31,13 +31,15 @@ class Amm
 
   def add_liquidity(counterparty, ether, max_tokens)
     tokens_added = 0.0
+    liquidity_minted = 0.0
 
-    if @ether_reserve > 0.0
-      # Adding more liquidity to existing AMM
+    if @total_liquidity > 0.0
       tokens_added = ether * (@token_reserve / @ether_reserve)
+      liquidity_minted = ether * (@total_liquidity / @ether_reserve)
     else
       # First deposit into AMM
       tokens_added = max_tokens
+      liquidity_minted = ether
     end
 
     if tokens_added > max_tokens
@@ -45,9 +47,11 @@ class Amm
     else
       @token_reserve += tokens_added
       @ether_reserve += ether
+      @total_liquidity += liquidity_minted
 
       counterparty.tokens -= tokens_added
       counterparty.ether -= ether
+      counterparty.lp_tokens += liquidity_minted
     end
 
     output

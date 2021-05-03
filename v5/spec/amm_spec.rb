@@ -23,9 +23,16 @@ describe Amm do
       expect([amm.ether_reserve, amm.token_reserve]).to eq([5, 500])
     end
 
-    xit "returns liquidity tokens minted" do
-      lp_tokens = amm.add_liquidity(lp, 5, 500)
-      expect(lp_tokens).to eq(5.0)
+    it "increases total_liquidity" do
+      expect {
+        amm.add_liquidity(lp, 5, 500)
+      }.to change(amm, :total_liquidity).by(5)
+    end
+
+    it "increases counterparty lp_tokens" do
+      expect {
+        amm.add_liquidity(lp, 5, 500)
+      }.to change(lp, :lp_tokens).by(5)
     end
   end
 
@@ -84,6 +91,13 @@ describe Amm do
       expect {
         amm.remove_liquidity(lp, 1)
       }.to change(lp, :tokens).by(100)
+    end
+
+    it "removes lp_tokens from provider" do
+      amm.add_liquidity(lp, 5, 500)
+      expect {
+        amm.remove_liquidity(lp, 1)
+      }.to change(lp, :lp_tokens).by(-1)
     end
 
     it "cannot remove too much ether" do

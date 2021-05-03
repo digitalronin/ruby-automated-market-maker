@@ -1,9 +1,10 @@
 class Amm
-  attr_accessor :ether_reserve, :token_reserve
+  attr_accessor :ether_reserve, :token_reserve, :total_liquidity
 
   def initialize(params = {})
     @ether_reserve = 0.0
     @token_reserve = 0.0
+    @total_liquidity = 0.0
     @silent = params.fetch(:silent) { false }
     output
   end

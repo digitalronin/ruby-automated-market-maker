@@ -79,6 +79,13 @@ describe Amm do
       }.to change(amm, :token_reserve).by(-100)
     end
 
+    it "reduces total_liquidity" do
+      amm.add_liquidity(lp, 5, 500)
+      expect {
+        amm.remove_liquidity(lp, 1)
+      }.to change(amm, :total_liquidity).by(-1)
+    end
+
     it "returns ether to provider" do
       amm.add_liquidity(lp, 5, 500)
       expect {

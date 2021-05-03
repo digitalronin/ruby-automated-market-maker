@@ -22,6 +22,7 @@ class Amm
     else
       @token_reserve -= tokens_removed
       @ether_reserve -= ether_removed
+      @total_liquidity -= lp_tokens
 
       counterparty.tokens += tokens_removed
       counterparty.ether += ether_removed

@@ -12,9 +12,8 @@ counterparties = Counterparties.new([alice, bob, zoe])
 
 loop do
   print "> "
-  string = STDIN.gets
 
-  case string.chomp
+  case STDIN.gets.to_s.chomp
   when /(.*) buy (.*)/
     counterparty = counterparties.find($1)
     ether = $2.to_f
@@ -32,7 +31,7 @@ loop do
   when "counterparties", "c"
     counterparties.output
     amm.output
-  when "q"
+  when "q", ""
     break
   else
     puts "???"

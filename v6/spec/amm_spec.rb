@@ -138,23 +138,6 @@ describe Amm do
       expect(amm.get_price).to be < initial_price
     end
 
-    it "returns to initial state" do
-      tokens = amm.buy(alice, 1)
-      amm.sell(alice, tokens)
-
-      actual = {
-        ether_reserve: amm.ether_reserve,
-        token_reserve: amm.token_reserve,
-      }
-
-      expected = {
-        ether_reserve: ether_reserve,
-        token_reserve: token_reserve,
-      }
-
-      expect(actual).to eq(expected)
-    end
-
     it "increases token price" do
       tokens1 = amm.buy(alice, 1)
       tokens2 = amm.buy(alice, 1)

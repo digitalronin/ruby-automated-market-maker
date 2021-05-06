@@ -94,9 +94,13 @@ class Amm
     konst = @token_reserve * @ether_reserve
 
     new_input_reserve = input_reserve + amount
-    new_output_reserve = konst / new_input_reserve
-    proceeds = output_reserve - new_output_reserve
-    return [proceeds, new_input_reserve, new_output_reserve]
+    gross_output = konst / new_input_reserve
+    proceeds = output_reserve - gross_output
+
+    proceeds_with_fee = proceeds * 0.997
+    new_output_reserve = output_reserve - proceeds_with_fee
+
+    return [proceeds_with_fee, new_input_reserve, new_output_reserve]
   end
 
   def log(msg)
